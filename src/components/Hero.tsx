@@ -34,6 +34,18 @@ const Hero: React.FC = () => {
     },
   ];
 
+  // Function to handle the resume download
+  const handleResumeDownload = () => {
+    // Replace 'path/to/your/resume.pdf' with the actual path to your resume file
+    const resumePath = './Resume/Yash_Chaudhari_Resume.pdf';
+    const link = document.createElement('a');
+    link.href = resumePath;
+    link.download = 'Yash_Chaudhari.pdf'; // Suggest a filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div id="home">
       <header className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -110,7 +122,7 @@ const Hero: React.FC = () => {
 
           {/* Social Icons */}
           <motion.div
-            className="flex justify-center gap-6 mb-12"
+            className="flex justify-center gap-6 mb-7"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 1 }}
@@ -130,6 +142,20 @@ const Hero: React.FC = () => {
               </motion.a>
             ))}
           </motion.div>
+
+          {/* Resume Button */}
+          <motion.button
+            className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-white/90 hover:bg-white/20 transition font-medium mb-8"
+            onClick={handleResumeDownload}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            // transition={{ delay: 0.2, duration: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+          >
+            Download Resume
+          </motion.button>
 
           {/* Skills */}
           <motion.div
