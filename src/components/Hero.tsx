@@ -1,185 +1,276 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import '../globals.css'
 
 const Hero: React.FC = () => {
-  const [animationKey, setAnimationKey] = useState(0); // key to force re-mount
+  const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
-    // Trigger the animation when the component mounts
     setAnimationKey((prevKey) => prevKey + 1);
-  }, []); // This ensures it runs only when the component mounts (like page load)
+  }, []);
 
   const socialLinks = [
     {
       href: "https://github.com/yashchaudhari11/",
-      icon: <Github className="w-6 h-6 text-white" />,
+      icon: <Github className="w-6 h-6" />,
+      name: "GitHub"
     },
     {
       href: "https://linkedin.com/in/yash-chaudhari-a94701242/",
-      icon: <Linkedin className="w-6 h-6 text-white" />,
+      icon: <Linkedin className="w-6 h-6" />,
+      name: "LinkedIn"
     },
     {
       href: "mailto:yashchaudhari9599@gmail.com",
-      icon: <Mail className="w-6 h-6 text-white" />,
+      icon: <Mail className="w-6 h-6" />,
+      name: "Email"
     },
   ];
 
-  const skills = [
-    { name: "JAVA", url: "https://docs.oracle.com/en/java/" },
-    { name: "React.js", url: "https://reactjs.org/docs/getting-started.html" },
-    {
-      name: "JavaScript",
-      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-    },
-  ];
-
-  // Function to handle the resume download
   const handleResumeDownload = () => {
-    // Replace 'path/to/your/resume.pdf' with the actual path to your resume file
-    const resumePath = './Resume/Yash_Chaudhari_Resume.pdf';
+    const resumePath = '../resume/yash_resume.pdf';
     const link = document.createElement('a');
     link.href = resumePath;
-    link.download = 'Yash_Chaudhari.pdf'; // Suggest a filename
+    link.download = 'Yash_Chaudhari_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <div id="home">
+    <div id="home" className={`relative ${'../globals.css'}`}>
+      <br/>
+      <br/>
       <header className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Gradient + Texture */}
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-600 to-indigo-800">
-          <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center opacity-80" />
-
-          {/* Animated Blobs */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 left-20 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob" />
-            <div className="absolute top-40 right-20 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000" />
-            <div className="absolute -bottom-8 left-40 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000" />
+        {/* Enhanced Background with floating elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-900">
+          <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center opacity-20" />
+          
+          {/* Floating Tech Icons */}
+          <div className="absolute inset-0 opacity-10">
+            {['</>', '{ }', '()', '=>', ';'].map((symbol, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-white text-2xl"
+                style={{
+                  left: `${Math.random() * 90 + 5}%`,
+                  top: `${Math.random() * 90 + 5}%`,
+                }}
+                animate={{
+                  y: [0, (Math.random() - 0.5) * 40],
+                  x: [0, (Math.random() - 0.5) * 40],
+                  rotate: [0, Math.random() * 360],
+                }}
+                transition={{
+                  duration: Math.random() * 15 + 15,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                {symbol}
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Gradient Blobs */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div 
+              className="absolute -top-20 -left-20 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20"
+              animate={{
+                scale: [1, 1.2, 1],
+                x: [-100, -50, -100],
+                y: [-100, -150, -100]
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            <motion.div 
+              className="absolute -bottom-20 -right-20 w-96 h-96 bg-indigo-600 rounded-full filter blur-3xl opacity-20"
+              animate={{
+                scale: [1, 1.3, 1],
+                x: [100, 150, 100],
+                y: [100, 50, 100]
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
           </div>
         </div>
 
-        {/* Content */}
-        <motion.div
-          key={animationKey} // This ensures the content is re-rendered on every visit
-          className="relative z-10 text-center px-4 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          {/* Profile Picture */}
+        {/* Main Content */}
+        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.08 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            key={Math.random()} // Ensures motion replays on every visit
+            key={animationKey}
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
           >
-            <div className="w-48 h-48 mx-auto rounded-full border-4 border-white/50 overflow-hidden shadow-lg shadow-white/10">
-              <img
-                src="./images/profile.jpg"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+            {/* Title with custom font for name */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 1 }}
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-white">
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
+    I'm <span className="font-['Audiowide']">Yash</span>
+  </span>
+</h1>
+              
+              {/* Animated subtitle */}
+              <motion.div
+                className="overflow-hidden"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80 mb-8">
+                  <motion.span 
+                    className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-white/80 via-white/90 to-white"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7, duration: 1 }}
+                  >
+                    Full Stack Developer & Problem Solver
+                  </motion.span>
+                </h2>
+              </motion.div>
+            </motion.div>
+
+            {/* Description with typing effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 1 }}
+              className="mb-10"
+            >
+              <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.1, duration: 0.5 }}
+                >
+                  Crafting exceptional digital experiences with
+                </motion.span>{' '}
+                <motion.span
+                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 font-medium"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.3, duration: 0.5 }}
+                >
+                  modern technologies
+                </motion.span>{' '}
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5, duration: 0.5 }}
+                >
+                  and
+                </motion.span>{' '}
+                <motion.span
+                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300 font-medium"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.7, duration: 0.5 }}
+                >
+                  clean code
+                </motion.span>
+                <motion.span
+                  className="inline-block ml-1"
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  |
+                </motion.span>
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2, duration: 0.8 }}
+            >
+              <motion.button
+                className="px-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full text-white font-medium flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/30 transition-all group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleResumeDownload}
+              >
+                <Download className="w-5 h-5 group-hover:animate-bounce" />
+                Download Resume
+              </motion.button>
+              
+              <motion.a
+                href="#about"
+                className="px-8 py-3 bg-white/10 backdrop-blur-sm rounded-full text-white font-medium flex items-center justify-center gap-2 hover:bg-white/20 transition-all group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Explore More
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            className="mt-auto mb-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.2, duration: 1 }}
+          >
+            <div className="flex justify-center gap-6">
+              {socialLinks.map((link, i) => (
+                <motion.a
+                  key={i}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative"
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/10 transition-all group-hover:shadow-lg group-hover:shadow-white/10">
+                    {link.icon}
+                  </div>
+                  <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {link.name}
+                  </span>
+                </motion.a>
+              ))}
             </div>
           </motion.div>
-
-          {/* Title */}
-          <motion.h1
-            className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 text-white tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1 }}
-            whileInView={{ opacity: 1, y: 0 }} // Trigger animation when in view
-            viewport={{ once: false }} // Keep animations from resetting
-          >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 drop-shadow-lg animate-pulse">
-              Hey,
-            </span>{" "}
-            <span className="text-3xl md:text-5xl lg:text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400">
-              I'm{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 animate-text">
-                Yash
-              </span>
-            </span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            className="text-lg md:text-2xl lg:text-3xl mb-8 text-white/90 font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }} // Keep animations from resetting
-          >
-            A passionate developer with a knack for creating dynamic web
-            applications.
-          </motion.p>
-
-          {/* Social Icons */}
+          <br/>
+          <br/>
+          {/* Scroll Indicator */}
           <motion.div
-            className="flex justify-center gap-6 mb-7"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 1 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }} // Keep animations from resetting
+            transition={{ delay: 2.5, duration: 0.8 }}
           >
-            {socialLinks.map((link, i) => (
-              <motion.a
-                key={i}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm hover:bg-white/20 transition-colors"
-                whileHover={{ scale: 1.15, rotate: 3 }}
+            <div className="flex flex-col items-center">
+              <span className="text-xs text-white/50 mb-2">Scroll Down</span>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               >
-                {link.icon}
-              </motion.a>
-            ))}
+                <div className="w-4 h-4 border-r-2 border-b-2 border-white/50 transform rotate-45" />
+              </motion.div>
+            </div>
           </motion.div>
-
-          {/* Resume Button */}
-          <motion.button
-            className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-white/90 hover:bg-white/20 transition font-medium mb-8"
-            onClick={handleResumeDownload}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            // transition={{ delay: 0.2, duration: 1 }}
-            whileHover={{ scale: 1.1 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-          >
-            Download Resume
-          </motion.button>
-
-          {/* Skills */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 text-sm md:text-base font-medium"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1, duration: 1 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }} // Keep animations from resetting
-          >
-            {skills.map((skill, idx) => (
-              <motion.a
-                key={idx}
-                href={skill.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 hover:bg-white/20 transition"
-                whileHover={{ scale: 1.1 }}
-              >
-                {skill.name}
-              </motion.a>
-            ))}
-          </motion.div>
-        </motion.div>
+        </div>
       </header>
     </div>
   );
