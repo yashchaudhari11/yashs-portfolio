@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+const sections = ['home', 'about', 'projects', 'skills', 'qualification', 'contact'];
 
 const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -30,12 +30,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-gradient-to-r from-purple-900/80 via-indigo-800/80 to-pink-800/80 backdrop-blur-md shadow-md fixed top-0 w-full z-50 transition duration-300">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <div className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
-          Yash Chaudhari
-        </div>
-
+      <div className="max-w-8xl mx-auto px-14 py-5 flex justify-between items-center">
         {/* Hamburger Menu Button for Mobile */}
         <div className="lg:hidden flex items-center">
           <button
@@ -70,7 +65,7 @@ const Navbar: React.FC = () => {
 
         {/* Navigation Links */}
         <ul
-          className={`lg:flex space-x-6 font-medium text-white/80 lg:flex-row ${
+          className={`lg:flex space-x-14 font-medium text-white/80 lg:flex-row ${
             isMenuOpen ? 'flex flex-col absolute top-16 left-0 w-full bg-gradient-to-r from-purple-900 via-indigo-800 to-pink-800 p-6' : 'hidden'
           }`}
         >
@@ -78,7 +73,7 @@ const Navbar: React.FC = () => {
             <li key={section}>
               <a
                 href={`#${section}`}
-                className={`transition hover:text-white ${
+                className={`text-lg transition hover:text-white ${
                   activeSection === section
                     ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 font-semibold'
                     : ''
