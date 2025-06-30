@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
       name: "LinkedIn"
     },
     {
-      href: "mailto:yashchaudhari9599@gmail.com",
+      href: "mailto:yashchaudhari.rcpit@gmail.com",
       icon: <Mail className="w-6 h-6" />,
       name: "Email"
     },
