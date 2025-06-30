@@ -27,7 +27,7 @@ const Contact: React.FC = () => {
           viewport={{ once: false, amount: 0.3 }}
         >
           I’m actively seeking internship opportunities, open to project
-          collaborations, and exploring exciting roles to grow professionally.
+          collaborations and exploring exciting roles to grow professionally.
           Feel free to connect professionally or just say hello.
         </motion.p>
 
